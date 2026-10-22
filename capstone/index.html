@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f5ef">
+  <title>LuxeStock | Inventory Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a href="#overview" class="brand">
+        <span class="brand-mark">L.</span>
+        <span><strong>LuxeStock</strong><small>INVENTORY INTELLIGENCE</small></span>
+      </a>
+
+      <p class="nav-label">WORKSPACE</p>
+      <nav class="navigation">
+        <a class="nav-link active" href="#overview">◫ &nbsp; Overview</a>
+        <a class="nav-link" href="#inventory">▤ &nbsp; Inventory</a>
+        <a class="nav-link" href="#analytics">↗ &nbsp; Analytics</a>
+        <a class="nav-link" href="#calculator">₹ &nbsp; Sales calculator</a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-note">
+          <span>✳</span>
+          <p>Good decisions begin with clear data.</p>
+          <small>Your business, thoughtfully organised.</small>
+        </div>
+        <a class="back-link" href="../index.html">← Back to assignments</a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar" id="overview">
+        <div>
+          <p class="eyebrow">YOUR BUSINESS AT A GLANCE</p>
+          <h1>Good day, <span>Admin.</span></h1>
+          <p class="subheading">A clearer view of your inventory starts here.</p>
+        </div>
+        <button class="primary-button" id="addProductTop" type="button">+ Add product</button>
+      </header>
+
+      <section class="stats-grid">
+        <article class="stat-card">
+          <div class="stat-top"><span>Total products</span><span class="stat-icon">▤</span></div>
+          <h2 id="totalProducts">0</h2>
+          <p>Unique products in catalogue</p>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Inventory value</span><span class="stat-icon gold">₹</span></div>
+          <h2 id="inventoryValue">₹0</h2>
+          <p>Unit price × stock quantity</p>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Total units</span><span class="stat-icon lavender">▦</span></div>
+          <h2 id="totalUnits">0</h2>
+          <p>Units across all products</p>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Low stock alerts</span><span class="stat-icon rose">!</span></div>
+          <h2 id="lowStockCount">0</h2>
+          <p>Products with 5 or fewer units</p>
+        </article>
+      </section>
+
+      <section id="inventory" class="content-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">PRODUCT MANAGEMENT</p>
+            <h2>Inventory catalogue</h2>
+            <p class="subheading">Manage products and keep everything in order.</p>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <label class="search-box">
+            <span>⌕</span>
+            <input id="searchInput" type="search" placeholder="Search products..." aria-label="Search products">
+          </label>
+          <select id="categoryFilter" aria-label="Filter category">
+            <option value="All">All categories</option>
+            <option value="Budget">Budget</option>
+            <option value="Standard">Standard</option>
+            <option value="Premium">Premium</option>
+          </select>
+          <button id="addProductButton" class="secondary-button" type="button">+ New product</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>PRODUCT</th>
+                <th>CATEGORY</th>
+                <th>UNIT PRICE</th>
+                <th>QUANTITY</th>
+                <th>STOCK VALUE</th>
+                <th>STATUS</th>
+                <th>ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="productTableBody"></tbody>
+          </table>
+        </div>
+        <div class="table-footer">
+          <span id="productCountLabel">0 products</span>
+          <span>Currency: INR (₹)</span>
+        </div>
+      </section>
+
+      <section id="addProductSection" class="content-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">EXPAND YOUR CATALOGUE</p>
+            <h2>Add a new product</h2>
+            <p class="subheading">Enter the details to update your inventory.</p>
+          </div>
+        </div>
+
+        <form id="productForm" class="product-form">
+          <div class="form-field">
+            <label for="productName">Product name</label>
+            <input id="productName" type="text" maxlength="60" placeholder="e.g. Wireless Headphones" required>
+          </div>
+          <div class="form-field">
+            <label for="productPrice">Unit price (₹)</label>
+            <input id="productPrice" type="number" min="0.01" step="0.01" placeholder="e.g. 2500" required>
+          </div>
+          <div class="form-field">
+            <label for="productQuantity">Quantity</label>
+            <input id="productQuantity" type="number" min="0" step="1" placeholder="e.g. 20" required>
+          </div>
+          <div class="form-field">
+            <label for="productCategory">Category</label>
+            <select id="productCategory">
+              <option value="auto">Auto-detect from price</option>
+              <option value="Budget">Budget</option>
+              <option value="Standard">Standard</option>
+              <option value="Premium">Premium</option>
+            </select>
+          </div>
+          <button class="primary-button form-submit" type="submit">Add to inventory →</button>
+        </form>
+        <p id="formMessage" class="form-message" role="status"></p>
+      </section>
+
+      <section id="analytics" class="content-section analytics-grid">
+        <article class="panel">
+          <p class="eyebrow">CATEGORY BREAKDOWN</p>
+          <h2>Inventory composition</h2>
+          <p class="subheading">Products grouped by price category.</p>
+          <div id="categoryBreakdown" class="category-breakdown"></div>
+        </article>
+
+        <article class="panel" id="calculator">
+          <p class="eyebrow">SALES ESTIMATOR</p>
+          <h2>Calculate your sale</h2>
+          <p class="subheading">Estimate the total after discount and tax.</p>
+
+          <form id="salesForm" class="sales-form">
+            <div class="form-field">
+              <label for="saleAmount">Sale amount (₹)</label>
+              <input id="saleAmount" type="number" min="0" step="0.01" value="975" required>
+            </div>
+            <div class="calculator-row">
+              <div class="form-field">
+                <label for="discountRate">Discount (%)</label>
+                <input id="discountRate" type="number" min="0" max="100" step="0.1" value="5" required>
+              </div>
+              <div class="form-field">
+                <label for="taxRate">Tax (%)</label>
+                <input id="taxRate" type="number" min="0" max="100" step="0.1" value="10" required>
+              </div>
+            </div>
+            <button class="secondary-button calculate-button" type="submit">Calculate total</button>
+          </form>
+
+          <div class="total-box">
+            <span>Estimated final total</span>
+            <strong id="saleTotal">₹1,018.88</strong>
+            <small id="saleBreakdown">After discount and tax</small>
+          </div>
+        </article>
+      </section>
+
+      <footer>
+        <strong>LuxeStock</strong>
+        <span>Thoughtful inventory management · Built with JavaScript</span>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>

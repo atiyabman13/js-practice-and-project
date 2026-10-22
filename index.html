@@ -1,0 +1,403 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My JavaScript Journey</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f7f5ef;
+      color: #263d32;
+      min-height: 100vh;
+      padding: 35px 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 35px 10px;
+    }
+
+    .eyebrow {
+      color: #8b7952;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(32px, 5vw, 48px);
+      color: #244737;
+      margin-bottom: 14px;
+    }
+
+    header p {
+      color: #77796f;
+      line-height: 1.8;
+    }
+
+    /* Big Capstone card */
+    .capstone {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      background: #244737;
+      color: #fffdf6;
+      border-radius: 25px;
+      padding: clamp(28px, 5vw, 48px);
+      margin: 15px 0 42px;
+      box-shadow: 0 15px 35px #24473720;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .capstone:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px #24473730;
+    }
+
+    .capstone-label {
+      display: inline-block;
+      color: #e3d4a8;
+      border: 1px solid #b8a97970;
+      border-radius: 30px;
+      padding: 8px 13px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      margin-bottom: 22px;
+    }
+
+    .capstone h2 {
+      font-family: Georgia, serif;
+      font-size: clamp(29px, 5vw, 43px);
+      font-weight: 500;
+      margin-bottom: 13px;
+    }
+
+    .capstone p {
+      max-width: 540px;
+      color: #d3ddd4;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .capstone-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .features {
+      color: #e2d6b7;
+      font-size: 12px;
+      line-height: 2;
+    }
+
+    .launch {
+      background: #e0d2a5;
+      color: #244737;
+      padding: 14px 21px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .sparkle {
+      position: absolute;
+      right: 35px;
+      top: 20px;
+      color: #d6c99e;
+      font-size: 80px;
+      opacity: 0.17;
+      pointer-events: none;
+    }
+
+    /* Assignment section */
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .section-heading h2 {
+      font-family: Georgia, serif;
+      font-size: 25px;
+      margin-bottom: 7px;
+    }
+
+    .section-heading p {
+      color: #828075;
+      font-size: 14px;
+    }
+
+    .count {
+      color: #6e785f;
+      font-size: 12px;
+    }
+
+    .assignment-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .assignment {
+      background: #fffefa;
+      border: 1px solid #e8e4d9;
+      border-radius: 17px;
+      padding: 20px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .assignment:hover {
+      border-color: #b7c6b2;
+      transform: translateY(-3px);
+    }
+
+    .assignment .number {
+      color: #9c8960;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .assignment h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: #304d3c;
+    }
+
+    .assignment p {
+      color: #828075;
+      font-size: 13px;
+      line-height: 1.6;
+      min-height: 42px;
+      margin-bottom: 16px;
+    }
+
+    .assignment button {
+      width: 100%;
+      border: 1px solid #d9dfd4;
+      border-radius: 10px;
+      background: #edf2e9;
+      color: #345640;
+      padding: 11px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .assignment button:hover {
+      background: #dce8d8;
+    }
+
+    .console-tip {
+      margin-top: 25px;
+      background: #eeece3;
+      border-radius: 14px;
+      padding: 18px 20px;
+      color: #686a5e;
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .console-tip strong {
+      color: #345640;
+    }
+
+    footer {
+      text-align: center;
+      color: #939083;
+      font-size: 12px;
+      padding: 30px 0 5px;
+    }
+
+    #runner {
+      display: none;
+    }
+
+    @media (max-width: 650px) {
+      .assignment-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 420px) {
+      .assignment-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <header>
+      <p class="eyebrow">MY LEARNING PORTFOLIO</p>
+      <h1>A little code, a lot of growth.</h1>
+      <p>
+        Welcome to my JavaScript journey.<br>
+        Explore my projects, experiments and learning milestones.
+      </p>
+    </header>
+
+    <!-- BIG CAPSTONE BUTTON -->
+    <a class="capstone" href="./capstone/index.html">
+      <span class="sparkle">✳</span>
+
+      <span class="capstone-label">FEATURED PROJECT · CAPSTONE</span>
+
+      <h2>LuxeStock</h2>
+
+      <p>
+        Smart Inventory & Sales Manager — a polished dashboard
+        for managing products, tracking inventory and calculating sales.
+      </p>
+
+      <div class="capstone-bottom">
+        <span class="features">
+          INVENTORY MANAGEMENT &nbsp;·&nbsp; ANALYTICS<br>
+          PRODUCT SEARCH &nbsp;·&nbsp; SALES CALCULATOR
+        </span>
+
+        <span class="launch">Explore Project ↗</span>
+      </div>
+    </a>
+
+    <!-- SMALL ASSIGNMENT BUTTONS -->
+    <section>
+      <div class="section-heading">
+        <div>
+          <h2>Practice corner</h2>
+          <p>Small steps. Strong foundations.</p>
+        </div>
+        <span class="count">06 ASSIGNMENTS</span>
+      </div>
+
+      <div class="assignment-grid">
+
+        <article class="assignment">
+          <div class="number">01 / FUNDAMENTALS</div>
+          <h3>Variables & Types</h3>
+          <p>Variables, data types and console output.</p>
+          <button onclick="runAssignment(1)">Run Assignment 1 →</button>
+        </article>
+
+        <article class="assignment">
+          <div class="number">02 / CALCULATIONS</div>
+          <h3>Bill & Tip</h3>
+          <p>Prompt inputs, tip percentage and totals.</p>
+          <button onclick="runAssignment(2)">Run Assignment 2 →</button>
+        </article>
+
+        <article class="assignment">
+          <div class="number">03 / CONDITIONS</div>
+          <h3>Grade Checker</h3>
+          <p>If/else, switch and ternary operators.</p>
+          <button onclick="runAssignment(3)">Run Assignment 3 →</button>
+        </article>
+
+        <article class="assignment">
+          <div class="number">04 / ITERATION</div>
+          <h3>Loops</h3>
+          <p>For, while and do-while practice.</p>
+          <button onclick="runAssignment(4)">Run Assignment 4 →</button>
+        </article>
+
+        <article class="assignment">
+          <div class="number">05 / REUSABILITY</div>
+          <h3>Functions & Scope</h3>
+          <p>Standard functions, arrow functions and scope.</p>
+          <button onclick="runAssignment(5)">Run Assignment 5 →</button>
+        </article>
+
+        <article class="assignment">
+          <div class="number">06 / COLLECTIONS</div>
+          <h3>Array Methods</h3>
+          <p>forEach, filter and map.</p>
+          <button onclick="runAssignment(6)">Run Assignment 6 →</button>
+        </article>
+
+      </div>
+    </section>
+
+    <div class="console-tip">
+      <strong>How to view assignment output</strong><br>
+      Select an assignment, press <strong>F12</strong>, and open the
+      <strong>Console</strong> tab. Your JavaScript output will appear there.
+    </div>
+
+    <footer>
+      Crafted with care · HTML, CSS & JavaScript
+    </footer>
+
+    <iframe id="runner" title="Assignment runner"></iframe>
+
+  </div>
+
+  <script>
+    let activeRunner = null;
+
+    function runAssignment(number) {
+      const fileName = "assignment" + number + ".js";
+
+      console.clear();
+      console.log("Running: " + fileName);
+      console.log("------------------------------");
+
+      if (activeRunner) {
+        activeRunner.remove();
+      }
+
+      const frame = document.createElement("iframe");
+      frame.id = "runner";
+      document.body.appendChild(frame);
+      activeRunner = frame;
+
+      frame.onload = function () {
+        const script = frame.contentDocument.createElement("script");
+        script.src = "./" + fileName;
+
+        script.onload = function () {
+          console.log("Finished: " + fileName);
+        };
+
+        script.onerror = function () {
+          console.error("Could not load " + fileName);
+          console.error("Check that the file exists beside index.html.");
+        };
+
+        frame.contentDocument.body.appendChild(script);
+      };
+
+      frame.src = "about:blank";
+    }
+  </script>
+
+</body>
+</html>
